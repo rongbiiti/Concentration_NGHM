@@ -81,7 +81,7 @@ public class GameDataSyncer : UWRHelper
                 GameData gameData = GameData.FromJsonConvert(JsonNode.GetValue(uwr.downloadHandler.text));
                 Debug.Log("’Ê‚Á‚½");
 
-                // yield return GameManager.Instance.Cort_ScreenSync(gameData);
+                 yield return GameManager.Instance.Cort_ScreenSync(gameData);
             }
             else
             {

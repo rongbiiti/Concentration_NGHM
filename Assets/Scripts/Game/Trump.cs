@@ -165,14 +165,14 @@ public class Trump : MonoBehaviour
 
     public void FaceDown()
     {
-        if (m_face == TrumpFace.Front) { return; }
+        if (m_face == TrumpFace.Back) { return; }
         SetState(TrumpFace.Back);
     }
 
     public void FaceUp()
     {
-        if (m_face == TrumpFace.Back) { return; }
-        SetState(TrumpFace.Back);
+        if (m_face == TrumpFace.Front) { return; }
+        SetState(TrumpFace.Front);
     }
 
     private void SetState(TrumpFace trumpFace)
@@ -315,12 +315,15 @@ public class Trump : MonoBehaviour
 
     public void OnPointerEnter()
     {
-        
+        if(GameManager.Instance.CheckSelectTrump(this))
+        {
+            m_maskImage.gameObject.SetActive(true);
+        }        
     }
 
     public void OnPointerDown()
     {
-
+        GameManager.Instance.OnClick_SelectTrump(this);
     }
 
     public void OnPointerExit()
