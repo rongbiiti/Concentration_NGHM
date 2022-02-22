@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -284, y: 112.7}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 58.79518, y: 79.518074}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1653591184095773858
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maskImage: {fileID: 5192721497752589845}
   m_trumpSprite: {fileID: 11400000, guid: e08da06f4be0ceb45babdaab5048b0c9, type: 2}
+  m_image: {fileID: 1653591184095773853}
+  m_eventTrigger: {fileID: 1583499600892135259}
 --- !u!114 &1583499600892135259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,15 +110,51 @@ MonoBehaviour:
   - eventID: 0
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1653591184095773852}
+          m_TargetAssemblyTypeName: Trump, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 2
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1653591184095773852}
+          m_TargetAssemblyTypeName: Trump, Assembly-CSharp
+          m_MethodName: OnPointerDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1653591184095773852}
+          m_TargetAssemblyTypeName: Trump, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4355248739969269082
 GameObject:
   m_ObjectHideFlags: 0

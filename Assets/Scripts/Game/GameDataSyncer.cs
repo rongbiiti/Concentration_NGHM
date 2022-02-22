@@ -79,6 +79,7 @@ public class GameDataSyncer : UWRHelper
             if(CheckKey(uwr))
             {
                 GameData gameData = GameData.FromJsonConvert(JsonNode.GetValue(uwr.downloadHandler.text));
+                Debug.Log("’Ê‚Á‚½");
 
                 // yield return GameManager.Instance.Cort_ScreenSync(gameData);
             }
@@ -159,6 +160,35 @@ public class GameDataSyncer : UWRHelper
 
             yield return new WaitForSeconds(DefaultSyncSecond);
         }
+    }
+
+    public IEnumerator Cort_WaitResult()
+    {
+        while(true)
+        {
+            UnityWebRequest uwr = CreateGetUrl(KeyData.GameKey);
+            yield return WaitForRequest(uwr);
+
+            if(CheckKey(uwr))
+            {
+                GameData gameData = GameData.FromJsonConvert(JsonNode.GetValue(uwr.downloadHandler.text));
+
+                if(gameData.Turn != GameInfo.MyTurn)
+                {
+                    GameInfo.Game.Turn = Turn.Result;
+                    yield return Cort_UpdateGameData(GameInfo.Game);
+                    yield break;
+                }
+            }
+
+            yield return new WaitForSeconds(DefaultSyncSecond);
+        }
+    }
+
+    public IEnumerator Cort_UpdateResult(string userID, string roomID, int winCount, int loseCount, string applicationName)
+    {
+        UnityWebRequest result = ResultSetUrl(int.Parse(userID), int.Parse(roomID), winCount, loseCount, applicationName);
+        yield return WaitForRequest(result);
     }
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// トランプタイプ
@@ -116,4 +117,214 @@ public class Trump : MonoBehaviour
     [SerializeField] private Image m_maskImage;
 
     [SerializeField] private TrumpSprite m_trumpSprite;
+
+    [SerializeField] private Image m_image;
+
+    [SerializeField] private EventTrigger m_eventTrigger;
+
+    public EventTrigger TrumpEventTrigger {
+        get { return m_eventTrigger; }
+    }
+
+    private TrumpFace m_face = TrumpFace.None;
+    public TrumpFace Face {
+        get { return m_face; }
+    }
+
+    private TrumpType m_type = TrumpType.S_1;
+    public TrumpType Type {
+        get { return m_type; }
+        set { m_type = value; }
+    }
+
+    private int m_indexX = -1;
+    public int IndexX { get { return m_indexX; } }
+
+
+    private int m_indexY = -1;
+    public int IndexY { get { return m_indexY; } }
+
+    private int m_number = -1;
+    public int Number {
+        get { return m_number; }
+        set { m_number = value; }
+    }
+
+    public void SetUp(int x, int y, int num, TrumpType trumpType)
+    {
+        m_eventTrigger.enabled = true;
+
+        m_indexX = x;
+        m_indexY = y;
+        m_number = num;
+
+        m_type = trumpType;
+
+        FaceDown();
+    }
+
+    public void FaceDown()
+    {
+        if (m_face == TrumpFace.Front) { return; }
+        SetState(TrumpFace.Back);
+    }
+
+    public void FaceUp()
+    {
+        if (m_face == TrumpFace.Back) { return; }
+        SetState(TrumpFace.Back);
+    }
+
+    private void SetState(TrumpFace trumpFace)
+    {
+        m_face = trumpFace;
+
+        switch (m_face)
+        {
+            case TrumpFace.Front:
+                if(m_type == TrumpType.None) { return; }
+                m_image.sprite = m_trumpSprite.TrumpSpriteList[(int)m_type];
+                break;
+            case TrumpFace.Back:
+                m_image.sprite = m_trumpSprite.TrumpSpriteList[(int)TrumpType.Back];
+                break;
+        }
+    }
+
+    public IEnumerator Cort_DealMove(Vector2 targetPos, float moveTime, UnityAction callback)
+    {
+        float waitTime = 0f;
+        Vector3 startPos = transform.localPosition;
+        Quaternion startRot = transform.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0, 0, 180f);
+
+        while(waitTime < moveTime)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, targetPos, waitTime / moveTime);
+            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / moveTime);
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = targetPos;
+        transform.localRotation = startRot;
+
+        if(callback != null)
+        {
+            callback();
+        }
+    }
+
+    public void Acquired(TrumpType trumpType)
+    {
+        m_eventTrigger.enabled = false;
+
+        transform.localPosition = Vector3.zero;
+
+        m_type = trumpType;
+
+        FaceUp();
+    }
+
+    public IEnumerator Cort_FaceUp(float rotateTime)
+    {
+        if (m_face == TrumpFace.Front) { yield break; }
+
+        m_maskImage.gameObject.SetActive(false);
+
+        float waitTime = 0f;
+        Quaternion startRot = transform.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0, 90f, 0);
+
+        while(waitTime < rotateTime / 2)
+        {
+            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / (rotateTime / 2));
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localRotation = targetRot;
+        SetState(TrumpFace.Front);
+
+        waitTime = 0f;
+        startRot = transform.localRotation;
+        targetRot = Quaternion.Euler(Vector3.zero);
+
+        while (waitTime < rotateTime / 2)
+        {
+            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / (rotateTime / 2));
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator Cort_FaceDown(float rotateTime, UnityAction callback)
+    {
+        if (m_face == TrumpFace.Back) { yield break; }
+
+        float waitTime = 0f;
+        Quaternion startRot = transform.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0, 90f, 0);
+
+        while (waitTime < rotateTime / 2)
+        {
+            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / (rotateTime / 2));
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localRotation = targetRot;
+        SetState(TrumpFace.Back);
+
+        waitTime = 0f;
+        startRot = transform.localRotation;
+        targetRot = Quaternion.Euler(Vector3.zero);
+
+        while (waitTime < rotateTime / 2)
+        {
+            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / (rotateTime / 2));
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        if(callback != null)
+        {
+            callback();
+        }
+    }
+
+    public IEnumerator Cort_Move(Vector2 targetPos, float moveTime, UnityAction callback)
+    {
+        float waitTime = 0f;
+        Vector3 startPos = transform.localPosition;
+
+        while (waitTime < moveTime)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, targetPos, waitTime / moveTime);
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = targetPos;
+
+        if (callback != null)
+        {
+            callback();
+        }
+    }
+
+    public void OnPointerEnter()
+    {
+        
+    }
+
+    public void OnPointerDown()
+    {
+
+    }
+
+    public void OnPointerExit()
+    {
+        m_maskImage.gameObject.SetActive(false);
+    }
 }

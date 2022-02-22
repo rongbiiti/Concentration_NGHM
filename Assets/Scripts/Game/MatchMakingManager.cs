@@ -325,7 +325,7 @@ public class MatchMakingManager : UWRHelper
     {
         if(GameInfo.MyUserID != string.Empty)
         {
-            FadeManager.Instance.LoadScene(2, 1f);
+            FadeManager.Instance.LoadScene(2, 0.5f);
         }
         yield break;
     }
