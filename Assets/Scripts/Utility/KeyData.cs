@@ -6,5 +6,5 @@ public class KeyData
     /// <summary>
     /// GameKeyÅiRoomIDÅj
     /// </summary>
-    public static string GameKey = "11551";
+    public static string GameKey = "648752";
 }

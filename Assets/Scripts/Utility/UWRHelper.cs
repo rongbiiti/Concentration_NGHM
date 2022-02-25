@@ -32,6 +32,7 @@ public class UWRHelper : MonoBehaviour
     public UnityWebRequest CreateGetUrl(string key)
     {
         UnityWebRequest uwr = default;
+        
 
         switch (GameInfo.URLType)
         {
@@ -158,11 +159,15 @@ public class UWRHelper : MonoBehaviour
         // 通信待ち...
         yield return request.SendWebRequest();
 
+        
+
         // HTTPステータスコードがエラーを示していたら...
         if (request.isHttpError)
         {
             GameObject msgBox = (GameObject)Instantiate((GameObject)Resources.Load("MessageBox"));
-            msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"Response Code : {request.responseCode}\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,1f));
+            msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"Response Code : {request.responseCode}\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,0.25f));
+            Debug.Log("URL : " + request.url);
+            Debug.Log("URI : " + request.uri);
             while (true) { yield return null; }
         }
         // UnityWebRequestのシステムエラーが発生したら...
@@ -173,13 +178,13 @@ public class UWRHelper : MonoBehaviour
             if (request.error == "Request timeout")
             {
                 GameObject msgBox = (GameObject)Instantiate((GameObject)Resources.Load("MessageBox"));
-                msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"No response.\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,1f));
+                msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"No response.\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,0.25f));
                 while (true) { yield return null; }
             }
             else
             {
                 GameObject msgBox = (GameObject)Instantiate((GameObject)Resources.Load("MessageBox"));
-                msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"Unable to connect to the network.\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,1f));
+                msgBox.GetComponent<MessageBox>().Initialize_Ok("Communication Error", $"Unable to connect to the network.\nReturn to the matching screen.", () => FadeManager.Instance.LoadScene(1,0.25f));
                 while (true) { yield return null; }
             }
         }

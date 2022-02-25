@@ -11,11 +11,11 @@ using System.Collections;
 
 // 【開発環境】
 // 作成/更新
-// https://101.207.135.70:8090/cloudt/gamedata/update
+// http://localhost:80/concent_testBuild/cloudt/gamedata/update
 // 取得
-// https://101.207.135.70:8090/cloudt/gamedata/get
+// http://localhost:80/concent_testBuild/cloudt/gamedata/get
 // 削除
-// https://101.207.135.70:8090/cloudt/gamedata/delete
+// http://localhost:80/concent_testBuild/cloudt/gamedata/delete
 
 
 /// <summary>
@@ -31,7 +31,7 @@ public class KeyValueHelper
     /// <summary>
     /// BaseURL 開発環境用
     /// </summary>
-    private const string BaseUrl_Develop = "https://101.207.135.70:8090/cloudt/gamedata/";
+    private const string BaseUrl_Develop = "http://localhost:80/cloudt/gamedata/";
 
     /// <summary>
     /// BaseURL Info環境用
@@ -51,7 +51,7 @@ public class KeyValueHelper
     /// <summary>
     /// 結果送信用URL develop環境用
     /// </summary>
-    static string developResultUrl = "https://101.207.135.70:8090/cloudt/game/result/save";
+    static string developResultUrl = "http://localhost:80/cloudt/game/result/save";
 
     /// <summary>
     /// 結果送信用URL 本番環境用

@@ -197,11 +197,23 @@ public class Trump : MonoBehaviour
         Vector3 startPos = transform.localPosition;
         Quaternion startRot = transform.localRotation;
         Quaternion targetRot = Quaternion.Euler(0, 0, 180f);
+        Quaternion targetRot2 = Quaternion.identity;
 
         while(waitTime < moveTime)
         {
             transform.localPosition = Vector3.Lerp(startPos, targetPos, waitTime / moveTime);
-            transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / moveTime);
+            
+
+            if(waitTime < moveTime / 2f)
+            {
+                transform.localRotation = Quaternion.Lerp(startRot, targetRot, waitTime / moveTime);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Lerp(startRot, targetRot2, waitTime / moveTime);
+            }
+
+
             waitTime += Time.deltaTime;
             yield return null;
         }

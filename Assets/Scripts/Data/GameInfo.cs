@@ -43,7 +43,7 @@ public class GameInfo
     /// <summary>
     /// 自身のユーザーID
     /// </summary>
-    public static string MyUserID = "893398";
+    public static string MyUserID = "893598";
 
     /// <summary>
     /// 自身のターン

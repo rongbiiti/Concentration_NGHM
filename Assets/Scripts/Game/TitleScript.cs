@@ -8,18 +8,20 @@ public class TitleScript : UWRHelper
     {
         StartCoroutine(nameof(IDInit));
     }
-    
+
     /// <summary>
     /// ルームIDとユーザーID初期化、その後マッチメイクシーンに移動
     /// </summary>
     /// <returns></returns>
     private IEnumerator IDInit()
     {
+        
+
         yield return Cort_GetGameKey();
 
         yield return Cort_GetUserID();
 
-        FadeManager.Instance.LoadScene(1, 1f);
+        FadeManager.Instance.LoadScene(1, 0.25f);
     }
 
     /// <summary>

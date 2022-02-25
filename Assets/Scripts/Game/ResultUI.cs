@@ -32,7 +32,7 @@ public class ResultUI : MonoBehaviour
         SetIntaractableButton(false);
 
         yield return m_gameDataSyncer.Cort_DeleteGameData();
-        FadeManager.Instance.LoadScene(1, 0.5f);
+        FadeManager.Instance.LoadScene(1, 0.25f);
     }
 
     private void SetIntaractableButton(bool enabled)

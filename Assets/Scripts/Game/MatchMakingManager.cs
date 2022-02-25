@@ -20,6 +20,7 @@ public class MatchMakingManager : UWRHelper
     protected void Start()
     {
         StartMatching();
+        
     }
 
     private void StartMatching()
@@ -41,7 +42,11 @@ public class MatchMakingManager : UWRHelper
 
     private IEnumerator Cort_Init()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+
+        int rndUserID = UnityEngine.Random.Range(10000, 999999);
+        string strUserID = rndUserID.ToString();
+        GameInfo.MyUserID = strUserID;
 
         yield return Cort_GetGameKey();
 
@@ -63,23 +68,19 @@ public class MatchMakingManager : UWRHelper
     private IEnumerator Cort_GetGameKey()
     {
 
-        Debug.Log("Cort_GetGameKey");
-
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             if (GetClieParameters.m_GameKey != null)
             {
                 KeyData.GameKey = GetClieParameters.m_GameKey;
-                Debug.Log("Cort_GetGameKey : OK");
             }
             else
             {
-                Debug.Log("Cort_GetGameKey : NG");
 
                 GameObject msgObj = Instantiate(m_messageBoxPrefab);
                 msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"Failed to get progresses ID\nReturn to the title.", () =>
                 {
-                    FadeManager.Instance.LoadScene(0, 1f);
+                    FadeManager.Instance.LoadScene(0, 0.25f);
                     StopMatching();
                 });
                 while (true) { yield return null; }
@@ -94,7 +95,6 @@ public class MatchMakingManager : UWRHelper
     private IEnumerator Cort_GetUserID()
     {
 
-        Debug.Log("Cort_GetUserID");
 
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
@@ -115,7 +115,7 @@ public class MatchMakingManager : UWRHelper
                 GameObject msgObj = Instantiate(m_messageBoxPrefab);
                 msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"Failed to get user ID\nReturn to the title.", () =>
                 {
-                    FadeManager.Instance.LoadScene(0, 1f);
+                    FadeManager.Instance.LoadScene(0, 0.25f);
                     StopMatching();
                 });
                 while (true) { yield return null; }
@@ -166,13 +166,10 @@ public class MatchMakingManager : UWRHelper
 
             if (!CheckKey(uwr))
             {
-
-                Debug.Log("Cort_CheckDeleteGame : NG");
-
                 GameObject msgObj = Instantiate(m_messageBoxPrefab);
                 msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"There is no response from the opponent.\nReturn to the title.", () =>
                 {
-                    FadeManager.Instance.LoadScene(0, 1f);
+                    FadeManager.Instance.LoadScene(0, 0.25f);
                     StopMatching();
                 });
                 while (true) { yield return null; }
@@ -211,7 +208,7 @@ public class MatchMakingManager : UWRHelper
             GameObject msgObj = Instantiate(m_messageBoxPrefab);
             msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"I'm trying to register the same user ID. \nBack to the title.", () =>
             {
-                FadeManager.Instance.LoadScene(0, 1f);
+                FadeManager.Instance.LoadScene(0, 0.25f);
                 
             });
             while (true) { yield return null; }
@@ -243,7 +240,7 @@ public class MatchMakingManager : UWRHelper
                         GameObject msgObj = Instantiate(m_messageBoxPrefab);
                         msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"I'm trying to register the same user ID. \nBack to the title.", () =>
                         {
-                            FadeManager.Instance.LoadScene(0, 1f);
+                            FadeManager.Instance.LoadScene(0, 0.25f);
                             
                         });
                         while (true) { yield return null; }
@@ -325,7 +322,7 @@ public class MatchMakingManager : UWRHelper
     {
         if(GameInfo.MyUserID != string.Empty)
         {
-            FadeManager.Instance.LoadScene(2, 0.5f);
+            FadeManager.Instance.LoadScene(2, 0.25f);
         }
         yield break;
     }
@@ -353,7 +350,7 @@ public class MatchMakingManager : UWRHelper
             GameObject msgObj = Instantiate(m_messageBoxPrefab);
             msgObj.GetComponent<MessageBox>().Initialize_Ok("Communication error", $"No game information found. \nBack to the title.", () =>
             {
-                FadeManager.Instance.LoadScene(0, 1f);
+                FadeManager.Instance.LoadScene(0, 0.25f);
                 
             });
             while (true) { yield return null; }

@@ -946,7 +946,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1224098329}
   - component: {fileID: 1224098330}
-  - component: {fileID: 1224098331}
   m_Layer: 0
   m_Name: GameDataSyncer
   m_TagString: Untagged
@@ -978,18 +977,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a9e423c0ef2606409bee8864f8a1fbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1224098331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224098328}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f6aa0600d27cf4cbcad0bc4201447a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1458552820

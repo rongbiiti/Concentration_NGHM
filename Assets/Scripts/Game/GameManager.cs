@@ -102,7 +102,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Start()
     {
-        Debug.Log("Start");
         StartCoroutine(Cort_GameInit());
     }
 
@@ -118,7 +117,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         else
         {
             // 通常のゲーム開始
-            Debug.Log("Cort_GameStart");
             yield return Cort_GameStart();
         }
     }
@@ -137,15 +135,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         
         if (GameInfo.MyTurn == Turn.User01)
         {
-            Debug.Log("User1初期化開始");
             yield return Cort_InitUser1();
-            Debug.Log("User1初期化");
         }
         else if(GameInfo.MyTurn == Turn.User02)
         {
-            
             yield return Cort_InitUser2();
-            Debug.Log("User2初期化");
         }
 
         yield return Cort_TrumpDeal();
@@ -195,7 +189,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
         }
 
-        Debug.Log("SetUpTrumpArray : OK");
     }
 
     private void CreateTrumpObj()
@@ -223,9 +216,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private IEnumerator Cort_InitUser2()
     {
-        
         yield return m_gameDataSyncer.Cort_SetUpDataSync_User2();
-        Debug.Log("CreateTrump");
         CreateTrumpObj();
     }
 
@@ -235,9 +226,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             for (int j = 0; j < GameData.Width; j++)
             {
-                
                 yield return m_trumpList[i, j].Cort_DealMove(m_trumpPosArray[i, j], _trumpDealTime, null);
-                
             }
         }
     }
@@ -550,7 +539,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
             if(CheckGameEnd())
             {
-                yield return Cort_ReStart();
+                yield return Cort_Result();
             }
         }
     }
@@ -580,7 +569,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
             if (CheckGameEnd())
             {
-                yield return Cort_ReStart();
+                yield return Cort_Result();
             }
         }
     }

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 88148787}
   - component: {fileID: 88148786}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ClickToStartImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 139249857}
   - component: {fileID: 139249856}
   m_Layer: 5
-  m_Name: Image
+  m_Name: GameTitleImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
